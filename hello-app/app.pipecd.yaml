@@ -1,0 +1,17 @@
+apiVersion: pipecd.dev/v1beta1
+kind: KubernetesApp
+spec:
+  name: hello-app
+  labels:
+    env: test
+    owner: harshitghagre
+  pipeline:
+    stages:
+      - name: K8S_CANARY_ROLLOUT
+        with:
+          replicas: 1
+      - name: WAIT
+        with:
+          duration: 30s
+      - name: K8S_PRIMARY_ROLLOUT
+      - name: K8S_CANARY_CLEAN
